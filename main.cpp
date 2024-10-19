@@ -1,49 +1,64 @@
-#include <opencv2/opencv.hpp>           //чтобы видеть нахуй
-#include <opencv2/objdetect.hpp>        //чтобы видел нахуй
+#include <opencv2/opencv.hpp>           //Для газеринга основных методов св
+#include <opencv2/objdetect.hpp>        //Для детекта обьектов
 #include "includes/errorHandler.hpp"    //Чтобы ошибки обраатываь
-#include <iostream>                     //сиауты сам аутист
+#include "includes/functions.hpp"       //Тут основные функции. Читать хедер, там тоже комменты
 #include <filesystem>                   //для нахуй фалов отрыть делать
-#include <vector>                       //чтобы массивы ебащить
-#include <sstream>                      //чтобы я хз зочем
+#include <vector>                       //динамический массив
 
 using namespace cv;
 using namespace std;
 
-//asd
-//структура для директорий
-struct Links {
-public:
-    string faces = "/Users/cmpnion/CLionProjects/untitled/faces";
-    string haarascascades = "/Users/cmpnion/CLionProjects/untitled/haarcascades";
-};
 
 //Инициализируем глобально всю хуйню
-Mat             frame;                                      // картинка с камеры далбаеб
-ErrorHandler    eh;                                         // катчер ошибок
-VideoCapture    cap(0);                          //  индекс 0 - дефолт камера устройства
+Mat               frame;
+ErrorHandler      eh;
+Functions         functions;
+VideoCapture      cap(0);
+CascadeClassifier face_cascade;
+vector<Rect>      faces_detected;
+
 
 int main(){
-    eh.checkCamera(cap);                              //чек на далбаебааааа
+
+    eh.checkCamera(cap); //чекаем камеру
+    functions.loadCascade(face_cascade, "haarcascade_frontalface_default.xml"); //подгружаем обученный каскад фронтового лица
+
+
+
 
     while(true)
     {
-        cap >> frame;                                       //Тут передаем изображение с камеры на цею хуню
-        eh.isEmptyFrame(frame);                       //чекаем фрейм если камера короче пусто там если
+        cap >> frame;
+        eh.isEmptyFrame(frame);
+
+
+        //Обнаружение и отрисовка прямоугольна лиц
 
 
 
+        // Обнаружение лиц
+        face_cascade.detectMultiScale(frame, faces_detected);
 
-        imshow("frame", frame);    //вывели фрейм
-        if(waitKey(30) == 27)
-        {
+        // Рисуем прямоугольники вокруг обнаруженных лиц
+        for(size_t i = 0; i < faces_detected.size(); i++) {
+            rectangle(frame, faces_detected[i], Scalar(255, 0, 0), 2);
+        }
+
+
+
+        //showing frame
+        imshow("frame", frame);
+
+        //waiting escape
+        if(waitKey(30) == 27) {
             break;
-        }                                                    // эскейп чтобы выйти
+        }
 
 
     }
 
-    cap.release();                                          //вывели камеру
-    destroyAllWindows();                                    // Закрыли все окна опенсв
+    cap.release();
+    destroyAllWindows();
 
     return 0;
 }
