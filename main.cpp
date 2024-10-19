@@ -1,6 +1,6 @@
 #include <opencv2/opencv.hpp>           //чтобы видеть нахуй
 #include <opencv2/objdetect.hpp>        //чтобы видел нахуй
-#include "includes/errorHandler.hpp"    //Чтобы ошибки обраатываьб
+#include "includes/errorHandler.hpp"    //Чтобы ошибки обраатываь
 #include <iostream>                     //сиауты сам аутист
 #include <filesystem>                   //для нахуй фалов отрыть делать
 #include <vector>                       //чтобы массивы ебащить
