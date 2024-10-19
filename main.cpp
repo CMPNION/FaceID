@@ -18,32 +18,32 @@ public:
 };
 
 //Инициализируем глобально всю хуйню
-Mat             frame;             // картинка с камеры далбаеб
-ErrorHandler    eh;                // катчер ошибок
-VideoCapture    cap(0);      //  индекс 0 - дефолт камера устройства
+Mat             frame;                                      // картинка с камеры далбаеб
+ErrorHandler    eh;                                         // катчер ошибок
+VideoCapture    cap(0);                          //  индекс 0 - дефолт камера устройства
 
 int main(){
-    eh.checkCamera(cap);                                        //чек на далбаебааааа
+    eh.checkCamera(cap);                              //чек на далбаебааааа
 
     while(true)
     {
-        cap >> frame;                                              //Тут передаем изображение с камеры на цею хуню
-        eh.isEmptyFrame(frame);                                 //чекаем фрейм если камера короче пусто там если
+        cap >> frame;                                       //Тут передаем изображение с камеры на цею хуню
+        eh.isEmptyFrame(frame);                       //чекаем фрейм если камера короче пусто там если
 
 
 
 
-        imshow("frame", frame);                       //вывели фрейм
+        imshow("frame", frame);    //вывели фрейм
         if(waitKey(30) == 27)
         {
             break;
-        }                           // эскейп чтобы выйти
+        }                                                    // эскейп чтобы выйти
 
 
     }
 
-    cap.release(); //вывели камеру
-    destroyAllWindows(); // Закрыли все окна опенсв
+    cap.release();                                          //вывели камеру
+    destroyAllWindows();                                    // Закрыли все окна опенсв
 
     return 0;
 }
