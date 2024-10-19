@@ -9,7 +9,7 @@
 using namespace cv;
 using namespace std;
 
-
+//asd
 //структура для директорий
 struct Links {
 public:
