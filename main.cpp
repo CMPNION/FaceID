@@ -1,5 +1,9 @@
 #include <opencv2/opencv.hpp>           //Для газеринга основных методов св
 #include <opencv2/objdetect.hpp>        //Для детекта обьектов
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/objdetect/objdetect.hpp>
+#include <opencv2/face.hpp>
 #include "includes/errorHandler.hpp"    //Чтобы ошибки обраатываь
 #include "includes/functions.hpp"       //Тут основные функции. Читать хедер, там тоже комменты
 #include <filesystem>                   //для нахуй фалов отрыть делать
@@ -8,7 +12,6 @@
 using namespace cv;
 using namespace std;
 
-
 //Инициализируем глобально всю хуйню
 Mat               frame;
 ErrorHandler      eh;
@@ -16,7 +19,6 @@ Functions         functions;
 VideoCapture      cap(0);
 CascadeClassifier face_cascade;
 vector<Rect>      faces_detected;
-
 
 int main(){
 
