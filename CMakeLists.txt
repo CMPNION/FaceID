@@ -5,7 +5,11 @@ project(untitled)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(untitled main.cpp
-        /Users/cmpnion/CLionProjects/FaceID/includes/errorHandler.hpp)
+        /Users/cmpnion/CLionProjects/FaceID/includes/errorHandler.hpp
+        /Users/cmpnion/CLionProjects/FaceID/includes/functions.hpp
+        /Users/cmpnion/CLionProjects/FaceID/includes/faceRecognition.hpp
+        includes/ocvManager.hpp
+)
 
 find_package(OpenCV REQUIRED)
 

@@ -1,5 +1,3 @@
-
-
 //
 // Created by Дмитрий Норкин on 20.10.2024.
 //
@@ -18,9 +16,9 @@ class Functions
 {
   private:
     string hrc_directory = "../haarcascades/";
-    string faces_directory = "../faces/";
   public:
 
+  //Эту функцию нет смысла переносить в эрроры потому что я так сказал
   int loadCascade(CascadeClassifier& cascade_classifier, const string &fname) const {
       if (!cascade_classifier.load(hrc_directory + fname)) {
         cout << "Error loading face cascade\n";
