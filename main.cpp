@@ -27,9 +27,10 @@ int main(){
     {
 
         //face_recognition.detectFace(frame, cap, faces_detected, face_cascade); //тут детект лица
-        functions.collectFaceSamples(cap, face_cascade,"../faces/"  ,sample_name ); //тут сбор семплов
+        //functions.collectFaceSamples( ); //тут сбор семплов
         eh.isEmptyFrame(frame); //чек на пустой кадр
         cin >> sample_name;
+        functions.trainModel(cap, face_cascade,"../faces/" ,sample_name);
         imshow("frame", frame);
 
         if (waitKey(40) == 27) break; //ескейп чтобы не кушало ресурсы

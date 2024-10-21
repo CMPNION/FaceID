@@ -8,7 +8,8 @@
 #endif //FUNCTIONS_HPP
 #include <opencv2/opencv.hpp>
 #include <filesystem>
-
+#include <fstream>
+#include <opencv2/face.hpp>
 #include <iostream>
 
 
@@ -16,7 +17,7 @@ class ErrorHandler;
 using namespace std;
 using namespace cv;
 namespace fs = std::filesystem;
-
+using namespace cv::face;
 
 
 class Functions
@@ -26,7 +27,7 @@ class Functions
   public:
 
   //Эту функцию нет смысла переносить в эрроры потому что я так сказал
-  int loadCascade(CascadeClassifier& cascade_classifier, const string &fname) const {
+    int loadCascade(CascadeClassifier& cascade_classifier, const string &fname) const {
       if (!cascade_classifier.load(hrc_directory + fname)) {
         cout << "Error loading face cascade\n";
         return -1;
@@ -34,7 +35,7 @@ class Functions
       return 0;
     }
 
-  void collectFaceSamples(VideoCapture& capture, CascadeClassifier& face_cascade, const string& savePath, const string sample_name) {
+    void collectFaceSamples(VideoCapture& capture, CascadeClassifier& face_cascade, const string& savePath, const string sample_name) const {
 
       loadCascade(face_cascade, "haarcascade_frontalface_default.xml");
 
@@ -80,4 +81,29 @@ class Functions
         }
     }
 
+
+
+
+
+
+    void trainModel(VideoCapture& capture, CascadeClassifier& face_cascade, const string& savePath, const string sample_name) {
+        collectFaceSamples(capture, face_cascade, savePath, sample_name );
+        Ptr<LBPHFaceRecognizer> model = LBPHFaceRecognizer::create();
+
+        vector<Mat> images;
+        vector<int> labels;
+        map<int, string> labelMap;
+      // Загружаем изображения для каждого человека с их метками
+        for(int i = 0; i < 20; i++) {
+            images.push_back(imread(savePath+sample_name + "/" + std::to_string(i) + ".jpg", IMREAD_GRAYSCALE));
+            labels.push_back(1);
+
+        }
+        labelMap[size(labelMap)] = sample_name;
+        model->train(images, labels);
+        std::ofstream file("../faceModels/" + sample_name + ".yml");
+        model->save("../faceModels/" + sample_name + ".yml");
+
+        cout << "Модель обучена и сохранена!" << endl;
+  }
 };
