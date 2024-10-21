@@ -20,10 +20,10 @@ using namespace std;
 using namespace cv;
 using namespace cv::face;
 
-
 class FaceRecognition{
   private:
   public:
+
     void detectFace(Mat& frame, VideoCapture& cap, vector<Rect>& faces_detected, CascadeClassifier& face_cascade){
       cap >> frame;
       face_cascade.detectMultiScale(frame, faces_detected);
@@ -31,9 +31,12 @@ class FaceRecognition{
       for(size_t i = 0; i < faces_detected.size(); i++) {
         rectangle(frame, faces_detected[i], Scalar(255, 0, 0), 2);
       }
+    }
+
+    void trainModel() {
+
 
 
     }
-
 
 };
